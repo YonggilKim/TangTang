@@ -1,3 +1,4 @@
+using Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,18 +6,30 @@ using UnityEngine;
 public class MonsterController : MonoBehaviour
 {
     float _speed = 1.7f;
+    public float _health;
+    public float _maxHealth;
+
     Rigidbody2D _target;
 
     bool _isLive = true;
 
     Rigidbody2D _rigid;
     SpriteRenderer _spriter;
+    Animator _anim;
+    public RuntimeAnimatorController[] _runtimeAnimatorController;
 
+
+    private void OnEnable()
+    {
+        _target = Managers.Game.Player.GetComponent<Rigidbody2D>();
+        _isLive = true;
+        _health = _maxHealth = 0;
+    }
     private void Awake()
     {
         _rigid = GetComponent<Rigidbody2D>();
-        _spriter = GetComponent<SpriteRenderer>(); 
-        _target = Managers.Game.Player.GetComponent<Rigidbody2D>();
+        _spriter = GetComponent<SpriteRenderer>();
+        _anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -34,6 +47,13 @@ public class MonsterController : MonoBehaviour
 
     }
 
+    public void Init(Monster data)
+    {
+        _speed = data.speed;
+        _maxHealth = data.maxHealth;
+        _health = data.health;
+    }
+
     public void MonsterReposition()
     {
         _rigid.MovePosition(Util.RandomPointInAnnulus((Vector2)_target.position));
@@ -43,4 +63,5 @@ public class MonsterController : MonoBehaviour
     {
         _spriter.flipX = _target.position.x < _rigid.position.x;
     }
+
 }

@@ -1,3 +1,4 @@
+using Data;
 using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
 {
     Transform _root;
 
+    //public SpawnData[] _spawnData;
     private PlayerController _player;
     public PlayerController Player
     {
@@ -29,8 +31,9 @@ public class GameManager : MonoBehaviour
     public float _spawnInterval = 0;
     public float _playTime = 0;
     public float _maxGameTime = 1 * 60f;
-    public int _spawnlevel = 1;
+    public int _monsterlevel = 1;
 
+    Monster _monster;
     public void Init()
     {
         if (_root == null)
@@ -50,7 +53,10 @@ public class GameManager : MonoBehaviour
         _spawnInterval += Time.deltaTime;
         _playTime += Time.deltaTime;
 
-        _spawnlevel = Mathf.FloorToInt(_playTime / 10f);
+        _monsterlevel = Mathf.FloorToInt(_playTime / 10f);
+        if (_monsterlevel < 1)
+            _monsterlevel= 1;
+        
 
         if (_playTime > _maxGameTime)
         {
@@ -58,10 +64,12 @@ public class GameManager : MonoBehaviour
             //게임종료
             return;
         }
-
-        if (_spawnInterval > GetSpawnTime())
+        Dictionary<int, Monster> dict = Managers.Data.MonsterDic;
+        dict.TryGetValue(_monsterlevel,out _monster);
+        if (_spawnInterval > _monster.spawnTime)
+        //if (_spawnInterval > GetSpawnTime())
         {
-            GenerateMonster(_spawnlevel);
+            GenerateMonster(_monsterlevel);
             _spawnInterval = 0;
         }
     }
@@ -84,18 +92,19 @@ public class GameManager : MonoBehaviour
 
     public void GenerateMonster(int spawnlevel)
     {
-        GameObject monster = Managers.Resource.Instantiate($"Creature/Monster_00{GetMonsterId()}");
+        GameObject monster = Managers.Resource.Instantiate($"Creature/Monster_00{_monster.monsterLevel}");
         monster.GetOrAddComponent<MonsterController>();
         monster.tag = "Monster";
         monster.name = $"Monster_00{GetMonsterId()}";
 
         Vector2 randCirclePos = Util.RandomPointInAnnulus((Vector2)Player.transform.position);
         monster.transform.position = randCirclePos;
+        monster.GetComponent<MonsterController>().Init(_monster);
     }
 
     int GetMonsterId()
     {
-        if (_spawnlevel < 2)
+        if (_monsterlevel < 2)
             return 1;
         else
             return 2;
@@ -103,9 +112,9 @@ public class GameManager : MonoBehaviour
 
     float GetSpawnTime()
     {
-        if (_spawnlevel < 2)
+        if (_monsterlevel < 2)
             return 0.8f;
-        if (_spawnlevel < 5)
+        if (_monsterlevel < 5)
             return 0.5f;
         else
             return 0.2f;
@@ -114,3 +123,12 @@ public class GameManager : MonoBehaviour
 
 
 }
+
+//public class SpawnData
+//{
+//    public int level;
+//    public float spawnTime;
+//    public int spriteType;
+//    public int health;
+//    public float speed;
+//}
