@@ -51,5 +51,12 @@ public class Util
         return null;
     }
 
+    public static Vector2 RandomPointInAnnulus(Vector2 origin, float minRadius = 5, float maxRadius = 8)
+    {
+        var randomDirection = (Random.insideUnitCircle * origin).normalized;
+        var randomDistance = Random.Range(minRadius, maxRadius);
+        var point = origin + randomDirection * randomDistance;
+        return point;
+    }
 
 }

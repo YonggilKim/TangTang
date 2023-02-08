@@ -9,9 +9,10 @@ public class Managers : MonoBehaviour
 
     #region Contents
     GameManager _game = new GameManager();
+    MapManager _map = new MapManager();
 
     public static GameManager Game { get { return Instance._game; } }
-
+    public static MapManager Map { get { return Instance._map; } }
     #endregion
 
     #region Core
@@ -57,6 +58,7 @@ public class Managers : MonoBehaviour
             s_instance._data.Init();
             s_instance._pool.Init();
             s_instance._sound.Init();
+            s_instance._game.Init();
         }		
 	}
 
@@ -66,5 +68,6 @@ public class Managers : MonoBehaviour
         Scene.Clear();
         UI.Clear();
         Pool.Clear();
+        //Game.Clear();
     }
 }

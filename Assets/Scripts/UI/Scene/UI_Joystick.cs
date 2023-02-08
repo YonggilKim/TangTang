@@ -57,7 +57,6 @@ public class UI_Joystick : UI_Scene
 
     public void PointerDown()
     {
-        Debug.Log("@>> OnPointDown()");
         _handler.transform.position = Input.mousePosition;
         _joystickBG.transform.position = Input.mousePosition;
         _joystickTouchPos = Input.mousePosition;
@@ -65,7 +64,6 @@ public class UI_Joystick : UI_Scene
 
     public void Drag(BaseEventData baseEventData)
     {
-        Debug.Log("@>> Drag()");
         PointerEventData pointerEventData = baseEventData as PointerEventData;
         Vector2 dragePos = pointerEventData.position;
         JoystickVec = (dragePos - _joystickTouchPos).normalized;
@@ -83,7 +81,6 @@ public class UI_Joystick : UI_Scene
 
     public void PointerUp()
     {
-        Debug.Log("@>> PointerUp()");
         JoystickVec = Vector2.zero;
         _handler.transform.position = _joystickOriginalPos;
         _joystickBG.transform.position = _joystickOriginalPos;

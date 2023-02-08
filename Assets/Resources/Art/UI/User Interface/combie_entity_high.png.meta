@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -3279,15 +3279,15 @@ TextureImporter:
       combie_entity_high_151: -1653696682
       combie_entity_high_126: -1805413227
       combie_entity_high_93: 2046559225
-      combie_entity_high_170: -80078328
       combie_entity_high_172: 853472682
+      combie_entity_high_170: -80078328
       combie_entity_high_55: -285367234
       combie_entity_high_114: -616629201
       combie_entity_high_163: -508595104
       combie_entity_high_34: 1033369849
       combie_entity_high_142: 1332385181
-      combie_entity_high_10: -335835767
       combie_entity_high_83: 87296489
+      combie_entity_high_10: -335835767
       combie_entity_high_133: -1815006963
       combie_entity_high_50: -113988271
       combie_entity_high_1: -254735116

@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public Animator anim;
     public UI_Joystick joystickMovement;
 
+    private SpriteRenderer _sprite;
     private float _playerSpeed;
     public float PlayerSpeed 
     {
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        _sprite = GetComponent<SpriteRenderer>();
         RigidBody = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         Managers.UI.ShowSceneUI<UI_Joystick>();
@@ -29,14 +31,12 @@ public class PlayerController : MonoBehaviour
         joystickMovement = GameObject.Find("UI_Joystick").GetComponent<UI_Joystick>();
         PlayerSpeed = 3;
         Managers.Game.Player = this;
+
     }
 
     private void Update()
     {
-        //transform.eulerAngles
-        //rb.velocity.normalized
-        //Debug.Log($"{rb.velocity.normalized}");
-        //Debug.Log($"{transform.TransformDirection}");
+
         if (RigidBody.velocity.magnitude > 0)
         {
             anim.Play("Player_Walk");
@@ -58,26 +58,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+    }
+
     void UpdatePlayerDirection()
     {
         if (joystickMovement.JoystickVec.x < 0)
         {
-            //Debug.Log(" Going Left");
-            this.gameObject.transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
-            //if (Gun.activeSelf == true)
-            //{
-            //    Gun.transform.localScale = new Vector3(-0.2446888f, 0.2446888f, 0.2446888f);
-            //}
+            _sprite.flipX = true;
         }
 
         if (joystickMovement.JoystickVec.x > 0)
         {
             //Debug.Log("Going Right");
-            this.gameObject.transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
-            //if (Gun.activeSelf == true)
-            //{
-            //    Gun.transform.localScale = new Vector3(0.2446888f, 0.2446888f, 0.2446888f);
-            //}
+            _sprite.flipX = false;
         }
     }
 }
