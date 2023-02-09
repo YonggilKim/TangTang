@@ -13,7 +13,6 @@ public class Scanner : MonoBehaviour
     {
         targets = Physics2D.CircleCastAll(transform.position, scanRange, Vector2.zero, 0, targetLayer);
         nearestTarget = GetNearest();
-
     }
 
     Transform GetNearest()

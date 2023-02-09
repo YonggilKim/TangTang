@@ -51,6 +51,10 @@ public class UI_MainmenuPopup : UI_Popup
     #endregion
     MainMenuTab _currentTab = MainMenuTab.Evolve;
 
+    public void OnEnable()
+    {
+        Debug.Log("");
+    }
     public override void Init()
     {
         base.Init();

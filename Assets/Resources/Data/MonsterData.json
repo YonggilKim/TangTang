@@ -6,7 +6,9 @@
       "spriteType": "1",
       "maxHealth": "100",
       "health": "100",
-      "speed": "1.7"
+      "speed": "1.7",
+      "attack": "2",
+      "exp": "10"
     },
     {
       "monsterLevel": "2",
@@ -14,7 +16,9 @@
       "spriteType": "2",
       "maxHealth": "120",
       "health": "120",
-      "speed": "1.7"
+      "speed": "1.7",
+      "attack": "3",
+      "exp": "15"
     },
     {
       "monsterLevel": "3",
@@ -22,7 +26,79 @@
       "spriteType": "2",
       "maxHealth": "120",
       "health": "100",
-      "speed": "1.7"
+      "speed": "1.7",
+      "attack": "4",
+      "exp": "20"
+    },
+    {
+      "monsterLevel": "4",
+      "spawnTime": "0.5f",
+      "spriteType": "2",
+      "maxHealth": "120",
+      "health": "100",
+      "speed": "1.7",
+      "attack": "4",
+      "exp": "20"
+    },
+    {
+      "monsterLevel": "5",
+      "spawnTime": "0.5f",
+      "spriteType": "2",
+      "maxHealth": "120",
+      "health": "100",
+      "speed": "1.7",
+      "attack": "4",
+      "exp": "20"
+    },
+    {
+      "monsterLevel": "6",
+      "spawnTime": "0.5f",
+      "spriteType": "2",
+      "maxHealth": "120",
+      "health": "100",
+      "speed": "1.7",
+      "attack": "4",
+      "exp": "20"
+    },
+    {
+      "monsterLevel": "7",
+      "spawnTime": "0.5f",
+      "spriteType": "2",
+      "maxHealth": "120",
+      "health": "100",
+      "speed": "1.7",
+      "attack": "4",
+      "exp": "20"
+    },
+    {
+      "monsterLevel": "8",
+      "spawnTime": "0.5f",
+      "spriteType": "2",
+      "maxHealth": "120",
+      "health": "100",
+      "speed": "1.7",
+      "attack": "4",
+      "exp": "20"
+    },
+    {
+      "monsterLevel": "9",
+      "spawnTime": "0.5f",
+      "spriteType": "2",
+      "maxHealth": "120",
+      "health": "100",
+      "speed": "1.7",
+      "attack": "4",
+      "exp": "20"
+    },
+    {
+      "monsterLevel": "10",
+      "spawnTime": "0.5f",
+      "spriteType": "2",
+      "maxHealth": "120",
+      "health": "100",
+      "speed": "1.7",
+      "attack": "4",
+      "exp": "20"
     }
   ]
 } 

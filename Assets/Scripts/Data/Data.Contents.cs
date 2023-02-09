@@ -59,6 +59,8 @@ namespace Data
         public int maxHealth;
         public int health;
         public float speed;
+        public int attack;
+        public int exp;
     }
 
     [Serializable]

@@ -31,42 +31,57 @@ public class UI_PlayPopup : UI_Popup
     #endregion
 
     PlayerController _player;
-    public float _spawnInterval = 0;
-    public float _playTime = 0;
-    public float _maxGameTime = 1 * 60f;
 
+    GameManager _game;
     public override void Init()
+    {
+        Debug.Log("Init");
+        //TODO 이부분 로직 왜 안타는지 연구 
+    }
+
+    void OnPlayerDataUpdated()
+    {
+        
+    }
+    private void Awake()
     {
         base.Init();
 
+        _game = Managers.Game;
         BindText(typeof(Texts));
         BindImage(typeof(Images));
-    }
 
+        Managers.Game.OnPlayerDataUpdated = OnPlayerDataUpdated;
+    }
     void Start()
     {
-        Managers.Game.AddSkill(SkillType.Spinner);
-        Managers.Game.AddSkill(SkillType.Commendation);
+        _game.AddSkill(SkillType.Spinner);
+        _game.AddSkill(SkillType.Commendation);
     }
 
     void Update()
     {
-        _spawnInterval += Time.deltaTime;
-        _playTime += Time.deltaTime;
+        _game.SpawnInterval += Time.deltaTime;
+        _game.PlayTime += Time.deltaTime;
 
-        if (_playTime > _maxGameTime)
+        if (_game.PlayTime > _game.MaxGameTime)
         {
-            _playTime = _maxGameTime;
+            _game.PlayTime = _game.MaxGameTime;
             //TODO
             //Popup Result;
             return;
         }
 
-        if (_spawnInterval > Managers.Game.GetMonsterSpawnInterval())
+        if (_game.SpawnInterval > _game.GetMonsterSpawnInterval())
         {
-            Managers.Game.GenerateMonster();
-            _spawnInterval = 0;
+            _game.GenerateMonster();
+            _game.SpawnInterval = 0;
         }
 
+    }
+
+    PlayerController GetPlayer()
+    {
+        return _game.Player;
     }
 }

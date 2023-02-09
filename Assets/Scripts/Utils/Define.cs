@@ -12,6 +12,7 @@ public class Define
         Trials,
         Evolve,
     }
+    
     public enum Scene
     {
         Unknown,
@@ -65,5 +66,15 @@ public class Define
         Drug,
         Firebomb,
         Rocket,
+    }
+
+    public enum EventTypeInt
+    {
+        Count
+    }
+    public enum EventTypeObj
+    {
+        DeadMonster,
+        Count
     }
 }

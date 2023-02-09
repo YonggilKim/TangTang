@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class BulletLauncher : Skill 
 {
@@ -37,6 +38,7 @@ public class BulletLauncher : Skill
         Vector3 dir = targetPos - _player.transform.position;
         dir = dir.normalized;
 
+q
         GameObject com = Managers.Resource.Instantiate("Skill/Commendation", transform.parent);
         com.transform.position = transform.position;
         com.transform.rotation = Quaternion.FromToRotation(Vector3.up, dir);

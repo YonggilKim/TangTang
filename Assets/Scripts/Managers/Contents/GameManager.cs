@@ -1,5 +1,6 @@
 using Data;
 using DG.Tweening.Core.Easing;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -9,7 +10,7 @@ using UnityEngine.Networking.Types;
 using static Define;
 using static Util;
 
-public class GameManager 
+public class GameManager
 {
     Transform _root;
 
@@ -20,49 +21,49 @@ public class GameManager
         {
             return _player;
         }
-        set 
+        set
         {
-            _player = value; 
+            _player = value;
         }
     }
 
     Monster _monster;
-    public float _playTime = 0;
-    public float _maxGameTime = 1 * 60f;
-    private int _monsterSpawnLevel = 1;
-    public int MonsteerSpawnLevel
-    {
-        get 
-        {
-            return _monsterSpawnLevel;
-        }
-        set
-        {
-            if (value < 1)
-                _monsterSpawnLevel = 1;
-            if (value > 3)
-                _monsterSpawnLevel = 3;
+    //public float _playTime = 0;
+    //public float _maxGameTime = 1 * 60f;
+    public float SpawnInterval{get; set;}
+    public float PlayTime { get; set; }
+    public float MaxGameTime { get; set; } = 1 * 60f;
 
-            _monsterSpawnLevel = value;
+    private int _playerLevel = 0;
+    public int PlayerLevel 
+    {
+        get { return _playerLevel; }
+        set 
+        {
+            _playerLevel = value;
+            RefreshPlayerData();
         }
     }
+
+    private int _playerExp = 0;
+    public int PlayerExp
+    {
+        get { return _playerExp; }
+        set
+        {
+            _playerExp = value;
+            RefreshPlayerData();
+        }
+    }
+
+    public Action OnPlayerDataUpdated;
 
     public void Init()
     {
         Debug.Log("@>> GameManager Init()");
-        _playTime = 0;
-        _maxGameTime = 1 * 60f;
+        PlayerLevel = 1;
         Dictionary<int, Monster> dict = Managers.Data.MonsterDic;
-        dict.TryGetValue(_monsterSpawnLevel, out _monster);
-    }
-
-    //출현하는 몬스터 관리
-    public void SetMonsterLevel()
-    {
-        Dictionary<int, Monster> dict = Managers.Data.MonsterDic;
-        dict.TryGetValue(_monsterSpawnLevel, out _monster);
-
-        _monsterSpawnLevel = Mathf.FloorToInt(_playTime / 10f);
+        dict.TryGetValue(PlayerLevel, out _monster);
     }
 
     public void GameStart()
@@ -92,6 +93,7 @@ public class GameManager
 
     public void GenerateMonster()
     {
+        Managers.Data.MonsterDic.TryGetValue(PlayerLevel, out _monster);
         GameObject monster = Managers.Resource.Instantiate($"Creature/Monster_00{_monster.spriteType}");
         monster.GetOrAddComponent<MonsterController>();
         monster.tag = "Monster";
@@ -107,5 +109,15 @@ public class GameManager
         if (_monster == null)
             return -1;
         return _monster.spawnTime;
+    }
+
+    public void RefreshPlayerData()
+    {
+        OnPlayerDataUpdated?.Invoke();
+    }
+
+    public void RefreshMonsterData()
+    {
+        OnPlayerDataUpdated?.Invoke();
     }
 }

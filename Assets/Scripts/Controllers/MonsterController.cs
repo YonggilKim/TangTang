@@ -18,6 +18,7 @@ public class MonsterController : MonoBehaviour
     Collider2D _collider;
     SpriteRenderer _spriter;
     Animator _anim;
+    Monster _monster;
 
     private void OnEnable()
     {
@@ -43,6 +44,8 @@ public class MonsterController : MonoBehaviour
         Vector2 nextVec = dirVec.normalized * _speed * Time.fixedDeltaTime;
         _rigid.MovePosition(_rigid.position + nextVec);
         _rigid.velocity = Vector2.zero;
+        //Debug.DrawRay(_rigid.position, dirVec, Color.green);
+        Debug.DrawLine(_rigid.position, _target.position);
 
         float dist = Vector2.Distance(_target.position, _rigid.position);
         if (dist > 15)
@@ -54,6 +57,7 @@ public class MonsterController : MonoBehaviour
         _speed = data.speed;
         _maxHealth = data.maxHealth;
         _health = data.health;
+        _monster = data; //¾èÀºº¹»ç ±¦ÂúÀºÁö?
     }
 
     public void MonsterReposition()
@@ -104,7 +108,5 @@ public class MonsterController : MonoBehaviour
         _rigid.AddForce(dir.normalized * 2, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.2f);
         _isKnockback = false;
-
-
     }
 }
