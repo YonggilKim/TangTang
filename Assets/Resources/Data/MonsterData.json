@@ -3,7 +3,7 @@
     {
       "monsterLevel": "1",
       "spawnTime": "0.5f",
-      "spriteType": "0",
+      "spriteType": "1",
       "maxHealth": "100",
       "health": "100",
       "speed": "1.7"
@@ -11,7 +11,7 @@
     {
       "monsterLevel": "2",
       "spawnTime": "0.5f",
-      "spriteType": "1",
+      "spriteType": "2",
       "maxHealth": "120",
       "health": "120",
       "speed": "1.7"
@@ -19,7 +19,7 @@
     {
       "monsterLevel": "3",
       "spawnTime": "0.5f",
-      "spriteType": "1",
+      "spriteType": "2",
       "maxHealth": "120",
       "health": "100",
       "speed": "1.7"

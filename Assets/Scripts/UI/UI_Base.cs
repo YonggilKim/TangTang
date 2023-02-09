@@ -38,8 +38,6 @@ public abstract class UI_Base : MonoBehaviour
     protected void BindText(Type type) { Bind<Text>(type); }
     protected void BindButton(Type type) { Bind<Button>(type); }
 
-
-
     protected T Get<T>(int idx) where T : UnityEngine.Object
 	{
 		UnityEngine.Object[] objects = null;
@@ -49,11 +47,11 @@ public abstract class UI_Base : MonoBehaviour
 		return objects[idx] as T;
 	}
 
-    
     protected GameObject GetObject(int idx) 
 	{
 		return Get<GameObject>(idx); 
 	}
+
 	protected Text GetText(int idx) { return Get<Text>(idx); }
 	protected Button GetButton(int idx) { return Get<Button>(idx); }
 	protected Image GetImage(int idx) { return Get<Image>(idx); }

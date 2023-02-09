@@ -24,7 +24,7 @@ public class UI_TitlePopup : UI_Popup
         Text startButton = GetText((int)Texts.StartButton);
 
         startButton.gameObject.BindEvent(OnClickStart);
-        startButton.GetComponent<Text>().DOFade(0, 0.8f).SetLoops(-1, LoopType.Yoyo);
+        startButton.GetComponent<Text>().DOFade(0, 0.8f).SetLoops(-1, LoopType.Yoyo) ;
     }
 
     void OnClickStart()

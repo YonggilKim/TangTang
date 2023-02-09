@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7164445117100553077}
   - component: {fileID: 6786510648522279608}
   - component: {fileID: 7076849724253538111}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Monster_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!70 &6786510648522279608

@@ -52,4 +52,18 @@ public class Define
         Skill,
         Dead,
     }
+
+    public enum SkillType
+    {
+        Commendation,
+        Spinner,
+        Ball,
+        Boomerang,
+        Brick,
+        Drill,
+        Drone,
+        Drug,
+        Firebomb,
+        Rocket,
+    }
 }

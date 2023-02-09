@@ -9,8 +9,8 @@ public class GameScene : BaseScene
         base.Init();
 
         SceneType = Define.Scene.Game;
-        //Managers.UI.ShowPopupUI<UI_TitlePopup>();
-        Managers.Game.GameStart(1);
+        Managers.UI.ShowPopupUI<UI_TitlePopup>();
+        //Managers.Game.GameStart(1);
     }
 
     public override void Clear()

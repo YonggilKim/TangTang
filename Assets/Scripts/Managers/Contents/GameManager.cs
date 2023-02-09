@@ -6,20 +6,18 @@ using System.Runtime.Serialization;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking.Types;
+using static Define;
 using static Util;
 
-public class GameManager : MonoBehaviour
+public class GameManager 
 {
     Transform _root;
 
-    //public SpawnData[] _spawnData;
     private PlayerController _player;
     public PlayerController Player
     {
         get
         {
-            if(_player == null)
-                return FindObjectOfType<PlayerController>();
             return _player;
         }
         set 
@@ -28,107 +26,86 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public float _spawnInterval = 0;
+    Monster _monster;
     public float _playTime = 0;
     public float _maxGameTime = 1 * 60f;
-    public int _monsterlevel = 1;
+    private int _monsterSpawnLevel = 1;
+    public int MonsteerSpawnLevel
+    {
+        get 
+        {
+            return _monsterSpawnLevel;
+        }
+        set
+        {
+            if (value < 1)
+                _monsterSpawnLevel = 1;
+            if (value > 3)
+                _monsterSpawnLevel = 3;
 
-    Monster _monster;
+            _monsterSpawnLevel = value;
+        }
+    }
+
     public void Init()
     {
-        if (_root == null)
-        {
-            GameObject root = GameObject.Find("@GameManager");
-            if (root == null)
-            {
-                root = new GameObject { name = "@GameManager" };
-                root.gameObject.AddComponent<GameManager>();   
-                Object.DontDestroyOnLoad(root);
-            }
-        }
-    }
-
-    private void Update()
-    {
-        _spawnInterval += Time.deltaTime;
-        _playTime += Time.deltaTime;
-
-        _monsterlevel = Mathf.FloorToInt(_playTime / 10f);
-        if (_monsterlevel < 1)
-            _monsterlevel= 1;
-        
-
-        if (_playTime > _maxGameTime)
-        {
-            _playTime = _maxGameTime;
-            //게임종료
-            return;
-        }
+        Debug.Log("@>> GameManager Init()");
+        _playTime = 0;
+        _maxGameTime = 1 * 60f;
         Dictionary<int, Monster> dict = Managers.Data.MonsterDic;
-        dict.TryGetValue(_monsterlevel,out _monster);
-        if (_spawnInterval > _monster.spawnTime)
-        //if (_spawnInterval > GetSpawnTime())
-        {
-            GenerateMonster(_monsterlevel);
-            _spawnInterval = 0;
-        }
+        dict.TryGetValue(_monsterSpawnLevel, out _monster);
     }
 
-    public void GameStart(int mapLevel)
+    //출현하는 몬스터 관리
+    public void SetMonsterLevel()
+    {
+        Dictionary<int, Monster> dict = Managers.Data.MonsterDic;
+        dict.TryGetValue(_monsterSpawnLevel, out _monster);
+
+        _monsterSpawnLevel = Mathf.FloorToInt(_playTime / 10f);
+    }
+
+    public void GameStart()
     {
         //1. 맵생성
-        Managers.Map.LoadMap(mapLevel);
+        Managers.Map.LoadMap();
         //2. 플레이어 생성
-        GameObject player = Managers.Resource.Instantiate("Creature/Player");
-        player.name = "Player";
-        Player = player.GetComponent<PlayerController>();
+        GeneratePlayer();
 
         // temp -> 몬스터 생성
         //TODO 몬스터를 오브젝트리스트에 담아서 한번에 다죽일 수 있게 만들자
 
         //Game UI TODO
-
     }
 
-    public void GenerateMonster(int spawnlevel)
+    public void AddSkill(SkillType type)
     {
-        GameObject monster = Managers.Resource.Instantiate($"Creature/Monster_00{_monster.monsterLevel}");
+        Player.AddSkill(type);
+    }
+
+    void GeneratePlayer()
+    {
+        GameObject p = Managers.Resource.Instantiate("Creature/Player");
+        p.name = "Player";
+        Player = p.GetComponent<PlayerController>();
+    }
+
+    public void GenerateMonster()
+    {
+        GameObject monster = Managers.Resource.Instantiate($"Creature/Monster_00{_monster.spriteType}");
         monster.GetOrAddComponent<MonsterController>();
         monster.tag = "Monster";
-        monster.name = $"Monster_00{GetMonsterId()}";
+        monster.name = $"Monster_00{_monster.spriteType}";
 
         Vector2 randCirclePos = Util.RandomPointInAnnulus((Vector2)Player.transform.position);
         monster.transform.position = randCirclePos;
         monster.GetComponent<MonsterController>().Init(_monster);
     }
 
-    int GetMonsterId()
+    public float GetMonsterSpawnInterval()
     {
-        if (_monsterlevel < 2)
-            return 1;
-        else
-            return 2;
+        if (_monster == null)
+            return -1;
+        return _monster.spawnTime;
     }
-
-    float GetSpawnTime()
-    {
-        if (_monsterlevel < 2)
-            return 0.8f;
-        if (_monsterlevel < 5)
-            return 0.5f;
-        else
-            return 0.2f;
-    }
-
-
-
 }
-
-//public class SpawnData
-//{
-//    public int level;
-//    public float spawnTime;
-//    public int spriteType;
-//    public int health;
-//    public float speed;
-//}

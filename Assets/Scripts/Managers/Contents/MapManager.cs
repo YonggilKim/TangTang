@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class MapManager
 {
-    public void LoadMap(int mapLevel)
+    public int MapLevel { get; set; } = 1;
+
+    public void LoadMap()
     {
         DestoryMap();
 
-        string mapName = "Map_" + mapLevel.ToString("000"); //map_001
+        string mapName = "Map_" + MapLevel.ToString("000"); //map_001
         GameObject go = Managers.Resource.Instantiate($"Map/{mapName}");
         go.name = "Map";
     }

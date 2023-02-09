@@ -7,6 +7,7 @@ using DG.Tweening;
 
 public class UI_MainmenuPopup : UI_Popup
 {
+    #region Enums
     enum GameObjects
     {
         Battle,
@@ -47,7 +48,7 @@ public class UI_MainmenuPopup : UI_Popup
         TrialsImg,
         EvolveImg,
     }
-
+    #endregion
     MainMenuTab _currentTab = MainMenuTab.Evolve;
 
     public override void Init()
@@ -67,7 +68,7 @@ public class UI_MainmenuPopup : UI_Popup
 
         GetButton((int)Buttons.MsgBoxButton).gameObject.BindEvent(OnClickMsgBox);
         GetButton((int)Buttons.SettingButton).gameObject.BindEvent(() => { });
-        GetButton((int)Buttons.PlayButton).gameObject.BindEvent(() => { });
+        GetButton((int)Buttons.PlayButton).gameObject.BindEvent(() => { OnClickPlay(); });
 
         ShowTab(MainMenuTab.Battle);
     }
@@ -176,6 +177,10 @@ public class UI_MainmenuPopup : UI_Popup
     void OnClickPlay()
     {
         //TODO
+        Managers.Game.GameStart();
+        // Game UI Open
+        Managers.UI.ClosePopupUI(this);
+        Managers.UI.ShowPopupUI<UI_PlayPopup>();
     }
     #endregion
 }

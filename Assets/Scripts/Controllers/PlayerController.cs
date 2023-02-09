@@ -8,9 +8,9 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D RigidBody { get; private set; }
     public Animator anim;
-    public UI_Joystick joystickMovement;
-
+    private UI_Joystick joystickMovement;
     private SpriteRenderer _sprite;
+    public Skill Skill;
     private float _playerSpeed;
     public float PlayerSpeed 
     {
@@ -26,14 +26,28 @@ public class PlayerController : MonoBehaviour
         _sprite = GetComponent<SpriteRenderer>();
         RigidBody = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        Skill = GetComponentInChildren<Skill>();
         Managers.UI.ShowSceneUI<UI_Joystick>();
         //TODO 조이스틱 값을 좀더 효율적으로 받는방법?
         joystickMovement = GameObject.Find("UI_Joystick").GetComponent<UI_Joystick>();
         PlayerSpeed = 3;
         Managers.Game.Player = this;
-
     }
 
+    public void AddSkill(SkillType skillType)
+    {
+        switch (skillType)
+        {
+            case SkillType.Spinner:
+                Skill.SetSpiner();
+                break;
+            case SkillType.Commendation:
+                Skill.SetCommendation();
+                break;
+            default:
+                break;
+        }
+    }
     private void Update()
     {
 
