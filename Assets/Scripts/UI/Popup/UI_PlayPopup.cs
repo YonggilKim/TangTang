@@ -43,6 +43,7 @@ public class UI_PlayPopup : UI_Popup
     {
         
     }
+
     private void Awake()
     {
         base.Init();
@@ -55,7 +56,11 @@ public class UI_PlayPopup : UI_Popup
     }
     void Start()
     {
-        _game.AddSkill(SkillType.Tree);
+        _game.AddSkill(SkillType.Drone);
+        _game.AddSkill(SkillType.Ball);
+        _game.AddSkill(SkillType.Rocket);
+        _game.AddSkill(SkillType.Firebomb);
+        _game.AddSkill(SkillType.Spinner);
         //_game.AddSkill(SkillType.Commendation);
     }
 

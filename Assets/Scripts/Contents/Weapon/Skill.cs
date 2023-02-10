@@ -45,6 +45,11 @@ public class Skill : MonoBehaviour
         StartCoroutine(GenerateFirebomb());
     }
 
+    public void SetDrone()
+    {
+        GameObject dron = Managers.Resource.Instantiate("Skill/Drone", gameObject.transform);
+    }
+
     public void SetReflectionWeapon(SkillType type)
     {
         switch (type)
@@ -72,7 +77,7 @@ public class Skill : MonoBehaviour
         yield return new WaitForEndOfFrame();
         _firebomb = Managers.Resource.Instantiate("Skill/FireBomb");
 
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame(); 
         _firebomb = Managers.Resource.Instantiate("Skill/FireBomb");
         yield return new WaitForEndOfFrame();
 

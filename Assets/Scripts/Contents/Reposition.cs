@@ -10,7 +10,7 @@ public class Reposition : MonoBehaviour
         if (!collision.CompareTag("Area"))
             return;
 
-        Vector3 _playerPos = Managers.Game.Player.gameObject.transform.position;
+        Vector3 _playerPos = Managers.Game.GetPlayerPosition();
         Vector3 tilePos = transform.position;
 
         float diffX = Mathf.Abs(_playerPos.x - tilePos.x);

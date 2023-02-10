@@ -77,18 +77,7 @@ public class MonsterController : MonoBehaviour
             return;
 
         //TODO 구조잘못짬 데미지 처리하는 구조 생각하기
-        int damage = Managers.Game.GetNameTODamage(other.name);
-        _health -= damage;
-
-        if (_health > 0)
-        {
-            StartCoroutine("KnockbBack");
-            _anim.Play($"{gameObject.name}_Hit");
-        }
-        else
-        {
-            StartCoroutine("Dead");
-        }
+        OnHitted(other.gameObject);
     }
 
     public void OnHitted(GameObject obj)

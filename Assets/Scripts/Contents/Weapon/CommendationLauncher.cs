@@ -29,10 +29,10 @@ public class CommendationLauncher : Skill
         if (_player == null)
             return;
 
-        if (_player.GetComponent<Scanner>().nearestTarget == null)
+        if (_player.GetComponent<Scanner>().NearestTarget == null)
             return;
 
-        Vector3 targetPos = _player.GetComponent<Scanner>().nearestTarget.position;
+        Vector3 targetPos = _player.GetComponent<Scanner>().NearestTarget.position;
         Vector3 dir = targetPos - _player.transform.position;
         dir = dir.normalized;
 

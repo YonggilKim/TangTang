@@ -29,13 +29,13 @@ public class ReflectionObject : MonoBehaviour
         {
             skillType = SkillType.Tree;
             objectSpeed = 180;
-            rotateValue = 1;
+            rotateValue = 2;
         }
         StartCoroutine(StopBall());
         rb.AddForce(ranDir * objectSpeed);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         LastVeclocity = rb.velocity;
         if (CheckPos == true)

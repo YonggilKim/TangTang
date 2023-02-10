@@ -79,5 +79,10 @@ public class PlayerController : MonoBehaviour
             _sprite.flipX = false;
         }
     }
+    public bool GetIsFlip()
+    {
+        return _sprite.flipX;
+    }
+
 
 }

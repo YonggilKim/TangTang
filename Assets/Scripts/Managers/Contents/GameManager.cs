@@ -106,6 +106,9 @@ public class GameManager
             case SkillType.Tree:
                 Skill.SetReflectionWeapon(type);
                 break;
+            case SkillType.Drone:
+                Skill.SetDrone();
+                break;
             default:
                 break;
         }
@@ -163,6 +166,8 @@ public class GameManager
             res = GetSkillDamage(SkillType.Ball);
         else if (objname.Contains("Tree"))
             res = GetSkillDamage(SkillType.Tree);
+        else if (objname.Contains("RocketEffect"))
+            res = GetSkillDamage(SkillType.Drone);
         return res;
     }
 
@@ -187,10 +192,18 @@ public class GameManager
             case SkillType.Tree:
                 res = 80;
                 break;
+            case SkillType.Drone:
+                res = 100;
+                break;
             default:
                 res =  0;
                 break;
         }
         return res;
+    }
+
+    public Vector3 GetPlayerPosition()
+    {
+        return Player.gameObject.transform.position;
     }
 }
