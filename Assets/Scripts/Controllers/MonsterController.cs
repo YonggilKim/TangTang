@@ -102,8 +102,11 @@ public class MonsterController : MonoBehaviour
         _rigid.simulated = false;
         //TODO 애니메이터 종료 콜백 함수로 변경하기
         _anim.Play($"{gameObject.name}_Die");
+        Managers.Game.PlayerExp += _monster.exp;
+        Managers.Game.NumDeadMonsters++;
         yield return new WaitForSeconds(0.6f);
         Managers.Resource.Destroy(this.gameObject);
+
     }
 
     IEnumerator KnockbBack()

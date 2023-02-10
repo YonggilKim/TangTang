@@ -2,33 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Commendation : CommendationLauncher
+public class Commendation : MonoBehaviour
 {
-    Rigidbody2D rigid;
-
-    private void Start()
-    {
-        rigid = GetComponent<Rigidbody2D>();
-    }
-
+    Rigidbody2D _rigid;
+    private int _penetration = 3;
+    
     //TODO 표창 명중률이 떨어짐 유도미사일같은 로직으로 바꾸기
     public void Init(Vector3 dir)
     {
-        rigid.velocity = dir * 10f;
-        Damage = 100f;
-        Penetration = 3;
+        _rigid = GetComponent<Rigidbody2D>();
+        _rigid.velocity = dir * 10f;
+        _penetration = 3;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Monster") || Penetration == -1)
+        if (!collision.CompareTag("Monster") || _penetration == -1)
             return;
 
-        Penetration--;
+        _penetration--;
 
-        if (Penetration == -1)
+        if (_penetration == -1)
         { 
-            rigid.velocity = Vector3.zero;
+            _rigid.velocity = Vector3.zero;
             Managers.Resource.Destroy(gameObject);
         }
     }

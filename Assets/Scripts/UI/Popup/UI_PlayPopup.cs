@@ -1,4 +1,5 @@
 using Data;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,6 @@ public class UI_PlayPopup : UI_Popup
         KillValue,
         Timer,
         ExpValue,
-        EvolveName,
     }
 
     enum Images
@@ -41,7 +41,13 @@ public class UI_PlayPopup : UI_Popup
 
     void OnPlayerDataUpdated()
     {
-        
+        GetImage((int)Images.FillingImg).fillAmount = (float)_game.PlayerExp / _game.PlayerTotalExp;
+
+    }
+
+    void OnOnMonsterDataUpdated()
+    {
+        GetText((int)Texts.KillValue).text = $"{_game.NumDeadMonsters}";
     }
 
     private void Awake()
@@ -53,22 +59,19 @@ public class UI_PlayPopup : UI_Popup
         BindImage(typeof(Images));
 
         Managers.Game.OnPlayerDataUpdated = OnPlayerDataUpdated;
+        Managers.Game.OnMonsterDataUpdated = OnOnMonsterDataUpdated;
+        Managers.Game.OnPlayerLevelUp = OnPlayerLevelUp;
     }
     void Start()
     {
-        _game.AddSkill(SkillType.Drone);
-        _game.AddSkill(SkillType.Ball);
-        _game.AddSkill(SkillType.Rocket);
-        _game.AddSkill(SkillType.Firebomb);
-        _game.AddSkill(SkillType.Spinner);
-        //_game.AddSkill(SkillType.Commendation);
+        _game.AddSkill(SkillType.Commendation);
     }
 
     void Update()
     {
         _game.SpawnInterval += Time.deltaTime;
         _game.PlayTime += Time.deltaTime;
-
+        RefreshTime();
         if (_game.PlayTime > _game.MaxGameTime)
         {
             _game.PlayTime = _game.MaxGameTime;
@@ -85,6 +88,19 @@ public class UI_PlayPopup : UI_Popup
 
     }
 
+    void RefreshTime()
+    {
+        GetText((int)Texts.Timer).text = $"{TimeSpan.FromSeconds(_game.PlayTime).ToString(@"mm\:ss")}";
+    }
+
+    void OnPlayerLevelUp()
+    {
+        //TODO
+        //Open select skill
+        GetImage((int)Images.FillingImg).fillAmount = (float)_game.PlayerExp / _game.PlayerTotalExp;
+        GetText((int)Texts.ExpValue).text = $"{_game.PlayerLevel}";
+
+    }
     PlayerController GetPlayer()
     {
         return _game.Player;

@@ -4,18 +4,14 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Spinner : Skill
+public class Spinner : MonoBehaviour
 {
     public int LoopTime { get; set; } = 4; // spinner 레벨에 따라 루프타임결정
     public int Delay { get; set; } = 10;
 
-    private void Start()
-    {
-        ActiveSpinner();
-    }
     public void Init()
     {
-        Damage = 50f;
+        ActiveSpinner();
     }
 
     void ActiveSpinner()

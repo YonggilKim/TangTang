@@ -1,0 +1,64 @@
+{
+  "stats": [
+    {
+      "level": "1",
+      "maxHp": "105f",
+      "attack": "1",
+      "totalExp": "100"
+    },
+    {
+      "level": "2",
+      "maxHp": "105f",
+      "attack": "2",
+      "totalExp": "200"
+    },
+    {
+      "level": "3",
+      "maxHp": "105f",
+      "attack": "2",
+      "totalExp": "500"
+    },
+    {
+      "level": "4",
+      "maxHp": "105f",
+      "attack": "2",
+      "totalExp": "1000"
+    },
+    {
+      "level": "5",
+      "maxHp": "105f",
+      "attack": "2",
+      "totalExp": "1500"
+    },
+    {
+      "level": "6",
+      "maxHp": "105f",
+      "attack": "2",
+      "totalExp": "2000"
+    },
+    {
+      "level": "7",
+      "maxHp": "105f",
+      "attack": "2",
+      "totalExp": "2500"
+    },
+    {
+      "level": "8",
+      "maxHp": "105f",
+      "attack": "2",
+      "totalExp": "3000"
+    },
+    {
+      "level": "9",
+      "maxHp": "105f",
+      "attack": "2",
+      "totalExp": "3500"
+    },
+    {
+      "level": "10",
+      "maxHp": "105f",
+      "attack": "2",
+      "totalExp": "4000"
+    }
+  ]
+} 

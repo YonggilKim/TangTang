@@ -14,7 +14,7 @@ using static Util;
 public class GameManager
 {
     Transform _root;
-
+    #region Player
     private PlayerController _player;
     public PlayerController Player
     {
@@ -27,25 +27,15 @@ public class GameManager
             _player = value;
         }
     }
-    public Skill Skill { get; set; }
-    Monster _monster;
-    //public float _playTime = 0;
-    //public float _maxGameTime = 1 * 60f;
-    public float SpawnInterval{get; set;}
-    public float PlayTime { get; set; }
-    public float MaxGameTime { get; set; } = 1 * 60f;
-
-    private int _playerLevel = 0;
-    public int PlayerLevel 
+    private int _playerLevel = 1;
+    public int PlayerLevel
     {
         get { return _playerLevel; }
-        set 
+        set
         {
             _playerLevel = value;
-            RefreshPlayerData();
         }
     }
-
     private int _playerExp = 0;
     public int PlayerExp
     {
@@ -53,12 +43,54 @@ public class GameManager
         set
         {
             _playerExp = value;
+            // 레벨업 체크
+            int level = PlayerLevel;
+            while (true)
+            {
+                Player nextPlayer;
+                if (Managers.Data.PlayerDic.TryGetValue(level + 1, out nextPlayer) == false) 
+                    break;
+                Player player;
+                Managers.Data.PlayerDic.TryGetValue(level, out player);
+                if (_playerExp < player.totalExp) // _exp가 현재 레벨에서의 totalExp 보다 적으면 이제 레벨 증가 필요 없으므로 그만!
+                    break;
+                level++;
+            }
+
+            if (level != PlayerLevel)
+            {
+                Debug.Log("Level Up!");
+                PlayerLevel = level;
+                SetPlayerStat(PlayerLevel);
+            }
             RefreshPlayerData();
         }
     }
-
+    public int PlayerTotalExp { get; set; }
+    public int PlayerHp { get; set; }
+    public int PlayerMaxHp { get; set; }
+    public Skill Skill { get; set; }
     public List<SkillType> currentSkills = new List<SkillType>();
+    #endregion
+    #region Monster
+    Monster _monsterData;
+    private int _numDeadMonsters = 0;
+    public int NumDeadMonsters 
+    {
+        get { return _numDeadMonsters; }
+        set { _numDeadMonsters = value; RefreshMonsterData();} 
+    }
+    #endregion
+
+    #region Time
+    public float SpawnInterval{get; set;}
+    public float PlayTime { get; set; }
+    public float MaxGameTime { get; set; } = 10 * 60f;
+    #endregion
+
     public Action OnPlayerDataUpdated;
+    public Action OnMonsterDataUpdated;
+    public Action OnPlayerLevelUp;
 
     public void Init()
     {
@@ -67,9 +99,9 @@ public class GameManager
         _root = new GameObject().transform;
         _root.name = $"Monster_Root";
 
-        PlayerLevel = 1;
         Dictionary<int, Monster> dict = Managers.Data.MonsterDic;
-        dict.TryGetValue(PlayerLevel, out _monster);
+        dict.TryGetValue(PlayerLevel, out _monsterData);
+
     }
 
     public void GameStart()
@@ -78,13 +110,28 @@ public class GameManager
         Managers.Map.LoadMap();
         //2. 플레이어 생성
         GeneratePlayer();
-
+        SetPlayerStat();
         // temp -> 몬스터 생성
         //TODO 몬스터를 오브젝트리스트에 담아서 한번에 다죽일 수 있게 만들자
 
         //Game UI TODO
     }
 
+    public void SetPlayerStat(int level = 1)
+    {
+        
+        Dictionary<int, Data.Player> dict = Managers.Data.PlayerDic;
+        Data.Player player = dict[level]; 
+
+        PlayerLevel = player.level;
+        PlayerMaxHp = player.maxHp;
+        PlayerTotalExp = player.totalExp;
+        PlayerHp = player.maxHp;
+
+        if(PlayerLevel >1)
+            LevelUp();
+
+    }
     // TODO 플레이어컨트롤에서 스킬을 추가하는게 맞나 gm에서하는게 맞나
     public void AddSkill(SkillType type)
     {
@@ -124,32 +171,35 @@ public class GameManager
 
     public void GenerateMonster()
     {
-        Managers.Data.MonsterDic.TryGetValue(PlayerLevel, out _monster);
-        GameObject monster = Managers.Resource.Instantiate($"Creature/Monster_00{_monster.spriteType}",_root);
+        Managers.Data.MonsterDic.TryGetValue(PlayerLevel, out _monsterData);
+        GameObject monster = Managers.Resource.Instantiate($"Creature/Monster_00{_monsterData.spriteType}",_root);
         monster.GetOrAddComponent<MonsterController>();
         monster.tag = "Monster";
-        monster.name = $"Monster_00{_monster.spriteType}";
+        monster.name = $"Monster_00{_monsterData.spriteType}";
 
         Vector2 randCirclePos = Util.RandomPointInAnnulus((Vector2)Player.transform.position);
         monster.transform.position = randCirclePos;
-        monster.GetComponent<MonsterController>().Init(_monster);
+        monster.GetComponent<MonsterController>().Init(_monsterData);
     }
 
     public float GetMonsterSpawnInterval()
     {
-        if (_monster == null)
+        if (_monsterData == null)
             return -1;
-        return _monster.spawnTime;
+        return _monsterData.spawnTime;
     }
 
     public void RefreshPlayerData()
     {
         OnPlayerDataUpdated?.Invoke();
     }
-
+    public void LevelUp()
+    {
+        OnPlayerLevelUp?.Invoke();
+    }
     public void RefreshMonsterData()
     {
-        OnPlayerDataUpdated?.Invoke();
+        OnMonsterDataUpdated?.Invoke();
     }
 
     public int GetNameTODamage(string objname)
@@ -170,7 +220,7 @@ public class GameManager
             res = GetSkillDamage(SkillType.Drone);
         return res;
     }
-
+    
     //TODO Json데이타로 받기
     public int GetSkillDamage(SkillType type, int playerLevel = 1)
     {

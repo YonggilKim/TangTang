@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class CommendationLauncher : Skill 
+public class CommendationLauncher : MonoBehaviour 
 {
     float _timer;
     float _attackSpeed;
@@ -13,7 +13,7 @@ public class CommendationLauncher : Skill
         _attackSpeed = 1f;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         _timer += Time.deltaTime;
 
@@ -26,14 +26,14 @@ public class CommendationLauncher : Skill
 
     void FireComm()
     {
-        if (_player == null)
+        if (Managers.Game.Player == null)
             return;
 
-        if (_player.GetComponent<Scanner>().NearestTarget == null)
+        if (Managers.Game.Player.GetComponent<Scanner>().NearestTarget == null)
             return;
 
-        Vector3 targetPos = _player.GetComponent<Scanner>().NearestTarget.position;
-        Vector3 dir = targetPos - _player.transform.position;
+        Vector3 targetPos = Managers.Game.Player.GetComponent<Scanner>().NearestTarget.position;
+        Vector3 dir = targetPos - Managers.Game.Player.transform.position;
         dir = dir.normalized;
 
         GameObject com = Managers.Resource.Instantiate("Skill/Commendation", transform.parent);

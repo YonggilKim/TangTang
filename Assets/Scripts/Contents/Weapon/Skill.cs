@@ -34,7 +34,7 @@ public class Skill : MonoBehaviour
 
     public void SetCommendation()
     {
-        GameObject launcher = Managers.Resource.Instantiate("Skill/BulletLauncher", gameObject.transform);
+        GameObject launcher = Managers.Resource.Instantiate("Skill/CommendationLauncher", gameObject.transform);
     }
 
     public void SetFireBomb()

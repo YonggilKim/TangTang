@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace Data
 {
-    #region Stat
+    #region PlayerData
     [Serializable]
-    public class Stat
+    public class Player
     {
         public int level;
         public int maxHp;
@@ -15,34 +15,13 @@ namespace Data
         public int totalExp;
     }
     [Serializable]
-    public class StatData : ILoader<int, Stat>
+    public class PlayerData : ILoader<int, Player>
     {
-        public List<Stat> stats = new List<Stat>();
-        public Dictionary<int, Stat> MakeDict()
+        public List<Player> stats = new List<Player>();
+        public Dictionary<int, Player> MakeDict()
         {
-            Dictionary<int, Stat> dict = new Dictionary<int, Stat>();
-            foreach (Stat stat in stats)
-                dict.Add(stat.level, stat);
-            return dict;
-        }
-    }
-
-    [Serializable]
-    public class Stat2
-    {
-        public int level;
-        public float maxHp;
-        public int attack;
-        public float totalExp;
-    }
-    [Serializable]
-    public class StatData2 : ILoader<int, Stat2>
-    {
-        public List<Stat2> stats = new List<Stat2>();
-        public Dictionary<int, Stat2> MakeDict()
-        {
-            Dictionary<int, Stat2> dict = new Dictionary<int, Stat2>();
-            foreach (Stat2 stat in stats)
+            Dictionary<int, Player> dict = new Dictionary<int, Player>();
+            foreach (Player stat in stats)
                 dict.Add(stat.level, stat);
             return dict;
         }
