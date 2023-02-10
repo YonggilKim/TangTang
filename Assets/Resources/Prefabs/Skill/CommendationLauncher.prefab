@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1727185633989322242}
   - component: {fileID: 5098033409096949139}
   m_Layer: 0
-  m_Name: BulletLauncher
+  m_Name: CommendationLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking.Types;
 using static Define;
+using static UnityEngine.UI.Image;
 using static Util;
 
 public class GameManager
@@ -26,7 +27,7 @@ public class GameManager
             _player = value;
         }
     }
-
+    public Skill Skill { get; set; }
     Monster _monster;
     //public float _playTime = 0;
     //public float _maxGameTime = 1 * 60f;
@@ -56,11 +57,16 @@ public class GameManager
         }
     }
 
+    public List<SkillType> currentSkills = new List<SkillType>();
     public Action OnPlayerDataUpdated;
 
     public void Init()
     {
         Debug.Log("@>> GameManager Init()");
+
+        _root = new GameObject().transform;
+        _root.name = $"Monster_Root";
+
         PlayerLevel = 1;
         Dictionary<int, Monster> dict = Managers.Data.MonsterDic;
         dict.TryGetValue(PlayerLevel, out _monster);
@@ -79,9 +85,30 @@ public class GameManager
         //Game UI TODO
     }
 
+    // TODO 플레이어컨트롤에서 스킬을 추가하는게 맞나 gm에서하는게 맞나
     public void AddSkill(SkillType type)
     {
-        Player.AddSkill(type);
+        currentSkills.Add(type);
+        switch (type)
+        {
+            case SkillType.Spinner:
+                Skill.SetSpiner();
+                break;
+            case SkillType.Commendation:
+                Skill.SetCommendation();
+                break;
+            case SkillType.Firebomb:
+                Skill.SetFireBomb();
+                break;
+            case SkillType.Ball:
+                Skill.SetReflectionWeapon(type);
+                break;
+            case SkillType.Tree:
+                Skill.SetReflectionWeapon(type);
+                break;
+            default:
+                break;
+        }
     }
 
     void GeneratePlayer()
@@ -89,12 +116,13 @@ public class GameManager
         GameObject p = Managers.Resource.Instantiate("Creature/Player");
         p.name = "Player";
         Player = p.GetComponent<PlayerController>();
+        Skill = Player.GetComponentInChildren<Skill>();
     }
 
     public void GenerateMonster()
     {
         Managers.Data.MonsterDic.TryGetValue(PlayerLevel, out _monster);
-        GameObject monster = Managers.Resource.Instantiate($"Creature/Monster_00{_monster.spriteType}");
+        GameObject monster = Managers.Resource.Instantiate($"Creature/Monster_00{_monster.spriteType}",_root);
         monster.GetOrAddComponent<MonsterController>();
         monster.tag = "Monster";
         monster.name = $"Monster_00{_monster.spriteType}";
@@ -119,5 +147,50 @@ public class GameManager
     public void RefreshMonsterData()
     {
         OnPlayerDataUpdated?.Invoke();
+    }
+
+    public int GetNameTODamage(string objname)
+    {
+        int res = 0;
+
+        if (objname.Contains("Commendation"))
+            res = GetSkillDamage(SkillType.Commendation);
+        else if (objname.Contains("FireEffect"))
+            res = GetSkillDamage(SkillType.Firebomb);
+        else if (objname.Contains("Spinner"))
+            res = GetSkillDamage(SkillType.Spinner);
+        else if (objname.Contains("Ball"))
+            res = GetSkillDamage(SkillType.Ball);
+        else if (objname.Contains("Tree"))
+            res = GetSkillDamage(SkillType.Tree);
+        return res;
+    }
+
+    //TODO Json데이타로 받기
+    public int GetSkillDamage(SkillType type, int playerLevel = 1)
+    {
+        int res = 0;
+        switch (type)
+        {
+            case SkillType.Spinner:
+                res =  50;
+                break;
+            case SkillType.Commendation:
+                res =  100;
+                break;
+            case SkillType.Ball:
+                res = 100;
+                break;
+            case SkillType.Firebomb:
+                res =  30;
+                break;
+            case SkillType.Tree:
+                res = 80;
+                break;
+            default:
+                res =  0;
+                break;
+        }
+        return res;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,10 @@ public class PlayerController : MonoBehaviour
     public Animator anim;
     private UI_Joystick joystickMovement;
     private SpriteRenderer _sprite;
+    [NonSerialized]
     public Skill Skill;
+    public GameObject FollowPoint;
+
     private float _playerSpeed;
     public float PlayerSpeed 
     {
@@ -34,23 +38,8 @@ public class PlayerController : MonoBehaviour
         Managers.Game.Player = this;
     }
 
-    public void AddSkill(SkillType skillType)
-    {
-        switch (skillType)
-        {
-            case SkillType.Spinner:
-                Skill.SetSpiner();
-                break;
-            case SkillType.Commendation:
-                Skill.SetCommendation();
-                break;
-            default:
-                break;
-        }
-    }
     private void Update()
     {
-
         if (RigidBody.velocity.magnitude > 0)
         {
             anim.Play("Player_Walk");
@@ -90,4 +79,5 @@ public class PlayerController : MonoBehaviour
             _sprite.flipX = false;
         }
     }
+
 }

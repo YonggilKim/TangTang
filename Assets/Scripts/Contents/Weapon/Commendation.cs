@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Commendation : BulletLauncher
+public class Commendation : CommendationLauncher
 {
     Rigidbody2D rigid;
 
-    private void Awake()
+    private void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
     }

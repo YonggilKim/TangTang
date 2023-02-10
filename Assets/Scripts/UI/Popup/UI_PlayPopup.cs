@@ -55,8 +55,8 @@ public class UI_PlayPopup : UI_Popup
     }
     void Start()
     {
-        _game.AddSkill(SkillType.Spinner);
-        _game.AddSkill(SkillType.Commendation);
+        _game.AddSkill(SkillType.Tree);
+        //_game.AddSkill(SkillType.Commendation);
     }
 
     void Update()

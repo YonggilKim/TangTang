@@ -25,10 +25,10 @@ public class Spinner : Skill
         Sequence EnableSequence = DOTween.Sequence();
 
         Tween scale = transform.DOScale(1, 2);
-        Tween rotate = transform.DORotate(new Vector3(0, 0, -360), LoopTime, RotateMode.FastBeyond360)
+        Tween rotate = transform.DORotate(new Vector3(0, 0, -720), LoopTime, RotateMode.FastBeyond360)
             .SetEase(Ease.Linear);//.SetLoops(LoopTime);
         Tween scale2 = transform.DOScale(0, 2);
-        Tween rotate2 = transform.DORotate(new Vector3(0, 0, -360), LoopTime, RotateMode.FastBeyond360)
+        Tween rotate2 = transform.DORotate(new Vector3(0, 0, -720), LoopTime, RotateMode.FastBeyond360)
             .SetEase(Ease.Linear);
 
         EnableSequence.Append(scale).Join(rotate).Append(scale2).Join(rotate2).InsertCallback(Delay, () => ActiveSpinner());

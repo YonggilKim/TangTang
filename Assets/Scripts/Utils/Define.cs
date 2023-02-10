@@ -66,6 +66,7 @@ public class Define
         Drug,
         Firebomb,
         Rocket,
+        Tree,
     }
 
     public enum EventTypeInt

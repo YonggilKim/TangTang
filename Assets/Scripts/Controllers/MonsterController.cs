@@ -28,6 +28,7 @@ public class MonsterController : MonoBehaviour
         _rigid.simulated = true;
         _anim.Play($"{gameObject.name}_Walk");
     }
+
     private void Awake()
     {
         _rigid = GetComponent<Rigidbody2D>();
@@ -75,7 +76,9 @@ public class MonsterController : MonoBehaviour
         if (!other.CompareTag("Weapon"))
             return;
 
-        _health -= other.GetComponentInParent<Skill>().Damage;
+        //TODO 구조잘못짬 데미지 처리하는 구조 생각하기
+        int damage = Managers.Game.GetNameTODamage(other.name);
+        _health -= damage;
 
         if (_health > 0)
         {
@@ -88,6 +91,21 @@ public class MonsterController : MonoBehaviour
         }
     }
 
+    public void OnHitted(GameObject obj)
+    {
+        int damage = Managers.Game.GetNameTODamage(obj.name);
+        _health -= damage;
+
+        if (_health > 0)
+        {
+            StartCoroutine("KnockbBack");
+            _anim.Play($"{gameObject.name}_Hit");
+        }
+        else
+        {
+            StartCoroutine("Dead");
+        }
+    }
     IEnumerator Dead()
     {
         _isLive= false;
