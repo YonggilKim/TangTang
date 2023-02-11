@@ -1,0 +1,114 @@
+{
+  "stats": [
+    {
+      "level": "1",
+      "commAttackSpeed": "1f",
+      "commPenCount": "1",
+      "spinDuration": "4",
+      "spinDelay": "10",
+      "ballCount": "1",
+      "droneAttackSpeed": "6",
+      "firebombCount": "1",
+      "treeCount": "1"
+    },
+    {
+      "level": "2",
+      "commAttackSpeed": "1f",
+      "commPenCount": "2",
+      "spinDuration": "4",
+      "spinDelay": "9",
+      "ballCount": "2",
+      "droneAttackSpeed": "6",
+      "firebombCount": "1",
+      "treeCount": "1"
+    },
+    {
+      "level": "3",
+      "commAttackSpeed": "0.5f",
+      "commPenCount": "2",
+      "spinDuration": "5",
+      "spinDelay": "8",
+      "ballCount": "2",
+      "droneAttackSpeed": "5.5",
+      "firebombCount": "2",
+      "treeCount": "1"
+    },
+    {
+      "level": "4",
+      "commAttackSpeed": "0.5f",
+      "commPenCount": "2",
+      "spinDuration": "6",
+      "spinDelay": "7",
+      "ballCount": "2",
+      "droneAttackSpeed": "5.5",
+      "firebombCount": "2",
+      "treeCount": "2"
+    },
+    {
+      "level": "5",
+      "commAttackSpeed": "0.25f",
+      "commPenCount": "3",
+      "spinDuration": "6",
+      "spinDelay": "6",
+      "ballCount": "2",
+      "droneAttackSpeed": "5.5",
+      "firebombCount": "3",
+      "treeCount": "2"
+    },
+    {
+      "level": "6",
+      "commAttackSpeed": "0.25f",
+      "commPenCount": "3",
+      "spinDuration": "6",
+      "spinDelay": "5",
+      "ballCount": "3",
+      "droneAttackSpeed": "5",
+      "firebombCount": "4",
+      "treeCount": "2"
+    },
+    {
+      "level": "7",
+      "commAttackSpeed": "0.25f",
+      "commPenCount": "5",
+      "spinDuration": "7",
+      "spinDelay": "4",
+      "ballCount": "4",
+      "droneAttackSpeed": "5",
+      "firebombCount": "5",
+      "treeCount": "2"
+    },
+    {
+      "level": "8",
+      "commAttackSpeed": "0.25f",
+      "commPenCount": "5",
+      "spinDuration": "7",
+      "spinDelay": "3",
+      "ballCount": "5",
+      "droneAttackSpeed": "4",
+      "firebombCount": "6",
+      "treeCount": "3"
+    },
+    {
+      "level": "9",
+      "commAttackSpeed": "0.25f",
+      "commPenCount": "5",
+      "spinDuration": "8",
+      "spinDelay": "2",
+      "ballCount": "6",
+      "droneAttackSpeed": "4",
+      "firebombCount": "7",
+      "treeCount": "3"
+    },
+    {
+      "level": "10",
+      "commAttackSpeed": "0.25f",
+      "commPenCount": "5",
+      "spinDuration": "9",
+      "spinDelay": "1",
+      "ballCount": "6",
+      "droneAttackSpeed": "4",
+      "firebombCount": "8",
+      "treeCount": "3"
+    }
+  ]
+} 

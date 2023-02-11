@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private UI_Joystick joystickMovement;
     private SpriteRenderer _sprite;
     [NonSerialized]
-    public Skill Skill;
+    public SkillController Skill;
     public GameObject FollowPoint;
 
     private float _playerSpeed;
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
         _sprite = GetComponent<SpriteRenderer>();
         RigidBody = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        Skill = GetComponentInChildren<Skill>();
+        Skill = GetComponentInChildren<SkillController>();
         Managers.UI.ShowSceneUI<UI_Joystick>();
         //TODO 조이스틱 값을 좀더 효율적으로 받는방법?
         joystickMovement = GameObject.Find("UI_Joystick").GetComponent<UI_Joystick>();

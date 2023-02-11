@@ -72,7 +72,7 @@ public class GameManager
     public int PlayerTotalExp { get; set; }
     public int PlayerHp { get; set; }
     public int PlayerMaxHp { get; set; }
-    public Skill Skill { get; set; }
+    public SkillController Skill { get; set; }
     public List<SkillType> CurrentSkills = new List<SkillType>(); // 가지고 있는 스킬
     public bool CanUpgradeSkill // 스킬이 업글가능
     {
@@ -182,7 +182,7 @@ public class GameManager
         GameObject p = Managers.Resource.Instantiate("Creature/Player");
         p.name = "Player";
         Player = p.GetComponent<PlayerController>();
-        Skill = Player.GetComponentInChildren<Skill>();
+        Skill = Player.GetComponentInChildren<SkillController>();
     }
 
     public void GenerateMonster()
@@ -216,6 +216,7 @@ public class GameManager
     public void LevelUp()
     {
        OnPlayerLevelUp?.Invoke();
+       Skill.OnLevelUP();
     }
     
     public void RefreshMonsterData()

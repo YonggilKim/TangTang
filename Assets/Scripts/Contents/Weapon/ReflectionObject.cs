@@ -16,7 +16,6 @@ public class ReflectionObject : MonoBehaviour
     void Start()
     {
         ShootObject();
-        StartCoroutine(CheckStopBall());
     }
 
     void FixedUpdate()
@@ -86,7 +85,7 @@ public class ReflectionObject : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Weapon"))
             return;
         if (_skillType == SkillType.Ball)
         {

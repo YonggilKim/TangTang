@@ -5,6 +5,34 @@ using UnityEngine;
 
 namespace Data
 {
+    #region SkilStat
+    [Serializable]
+    public class SkillStat
+    {
+        public int level;
+        public float commAttackSpeed;
+        public int commPenCount;//관통가능
+        public int spinDuration;// 유지시간
+        public int spinDelay;// 유지시간
+        public int ballCount;//
+        public float droneAttackSpeed;
+        public int firebombCount;
+        public int treeCount;
+    }
+    [Serializable]
+    public class SkillStatData : ILoader<int, SkillStat>
+    {
+        public List<SkillStat> stats = new List<SkillStat>();
+        public Dictionary<int, SkillStat> MakeDict()
+        {
+            Dictionary<int, SkillStat> dict = new Dictionary<int, SkillStat>();
+            foreach (SkillStat stat in stats)
+                dict.Add(stat.level, stat);
+            return dict;
+        }
+    }
+    #endregion
+
     #region PlayerData
     [Serializable]
     public class Player

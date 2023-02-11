@@ -1,23 +1,19 @@
+using Data;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class CommendationLauncher : MonoBehaviour 
+public class CommendationLauncher : SkillController 
 {
     float _timer;
-    float _attackSpeed;
-
-    private void Start()
-    {
-        _attackSpeed = 1f;
-    }
 
     private void FixedUpdate()
     {
         _timer += Time.deltaTime;
 
-        if (_timer > _attackSpeed)
+        if (_timer > CommAttackSpeed)
         {
             FireComm();
             _timer = 0f;

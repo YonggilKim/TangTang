@@ -179,7 +179,7 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
-  nearestTarget: {fileID: 0}
+  ListNearestTargets: []
 --- !u!1 &3043338017278647634
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +247,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3330679280955797153}
-  - component: {fileID: 3330679280955797154}
+  - component: {fileID: 174440083846885142}
   m_Layer: 7
   m_Name: Skills
   m_TagString: Untagged
@@ -270,7 +270,7 @@ Transform:
   m_Father: {fileID: 3043338016813875432}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3330679280955797154
+--- !u!114 &174440083846885142
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -279,12 +279,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3330679280955797152}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92861417311f0c742bf105b76b22df75, type: 3}
+  m_Script: {fileID: 11500000, guid: 1abe03a9fd6ca114fa62cd3481d6ded4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Dir: {x: 0, y: 0, z: 0}
   _firebomb: {fileID: 0}
-  _player: {fileID: 0}
+  _player: {fileID: 3043338016813875439}
   _target: {fileID: 0}
 --- !u!1001 &8414621637693412983
 PrefabInstance:

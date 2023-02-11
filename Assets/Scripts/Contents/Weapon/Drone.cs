@@ -2,25 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Drone : MonoBehaviour
+public class Drone : SkillController
 {
     float _timer = 0;
-    float _attackSpeed;
     List<Transform> _transformList = new List<Transform>();
 
-    void Start()
-    {
-        _attackSpeed = 8f;
-    }
-
-    void Update()
+    void FixedUpdate()
     {
         transform.position = Vector2.MoveTowards(transform.position, Managers.Game.GetPlayerPosition() + new Vector3(0.5f, 0.5f, 0), 2.8f * Time.deltaTime);
         gameObject.GetComponent<SpriteRenderer>().flipX = Managers.Game.Player.GetIsFlip();
 
         _timer += Time.deltaTime;
 
-        if (_timer > _attackSpeed)
+        if (_timer > DroneAttackSpeed)
         {
             StartCoroutine(SpawenRocket());
             _timer = 0f;
@@ -33,8 +27,8 @@ public class Drone : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         int count = _transformList.Count;
-        if (count > 6)
-            count = 6;
+        if (count > 30)
+            count = 30;
 
         for (int i = 0; i < count; i++)
         {

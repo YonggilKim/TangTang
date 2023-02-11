@@ -102,14 +102,14 @@ public class MonsterController : MonoBehaviour
         _rigid.simulated = false;
         //TODO 애니메이터 종료 콜백 함수로 변경하기
         _anim.Play($"{gameObject.name}_Die");
-        Managers.Game.PlayerExp += _monster.exp;
         Managers.Game.NumDeadMonsters++;
         yield return new WaitForSeconds(0.6f);
         // 아이템 떨구자
         int rand = Random.Range(0, 10);
         if (rand < 6)
         { 
-            Managers.Resource.Instantiate("Exp/Exp", Managers.Game.Exproot);
+            GameObject gem = Managers.Resource.Instantiate("Exp/Exp", Managers.Game.Exproot);
+            gem.transform.position = transform.position;
         }
 
         Managers.Resource.Destroy(this.gameObject);
