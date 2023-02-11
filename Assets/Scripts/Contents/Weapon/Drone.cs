@@ -41,7 +41,7 @@ public class Drone : MonoBehaviour
             Vector3 spawnPos = transform.position + new Vector3(Managers.Game.Player.GetIsFlip() == true ? -0.2f : 0.2f, 0, 0);
             GameObject obj = Managers.Resource.Instantiate("Skill/Rocket", transform.parent);
             obj.transform.position = spawnPos;
-            obj.GetComponent<Rocket>().target = _transformList[i];
+            obj.GetComponent<Rocket>().Target = _transformList[i];
             yield return new WaitForSeconds(0.15f);
         }
     }

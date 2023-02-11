@@ -61,7 +61,6 @@ public class Skill : MonoBehaviour
                 StartCoroutine(GenerateReflectionWeapon(type));
                 break;
         }
-
     }
 
     //화염병 위치 계산 및 생성(재귀)

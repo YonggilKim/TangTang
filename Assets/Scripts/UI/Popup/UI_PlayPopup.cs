@@ -14,6 +14,7 @@ public class UI_PlayPopup : UI_Popup
 
     enum Buttons
     {
+        PauseBtn
     }
 
     enum Texts
@@ -39,17 +40,6 @@ public class UI_PlayPopup : UI_Popup
         //TODO 이부분 로직 왜 안타는지 연구 
     }
 
-    void OnPlayerDataUpdated()
-    {
-        GetImage((int)Images.FillingImg).fillAmount = (float)_game.PlayerExp / _game.PlayerTotalExp;
-
-    }
-
-    void OnOnMonsterDataUpdated()
-    {
-        GetText((int)Texts.KillValue).text = $"{_game.NumDeadMonsters}";
-    }
-
     private void Awake()
     {
         base.Init();
@@ -57,7 +47,9 @@ public class UI_PlayPopup : UI_Popup
         _game = Managers.Game;
         BindText(typeof(Texts));
         BindImage(typeof(Images));
+        BindButton(typeof(Buttons));
 
+        GetButton((int)Buttons.PauseBtn).gameObject.BindEvent(OnClickPause);
         Managers.Game.OnPlayerDataUpdated = OnPlayerDataUpdated;
         Managers.Game.OnMonsterDataUpdated = OnOnMonsterDataUpdated;
         Managers.Game.OnPlayerLevelUp = OnPlayerLevelUp;
@@ -69,6 +61,16 @@ public class UI_PlayPopup : UI_Popup
 
     void Update()
     {
+        if (Managers.UI.PeekPopupUI<UI_PlayPopup>() != this)
+        {
+            Time.timeScale = 0;
+            return;
+        }
+        else 
+        {
+            Time.timeScale = 1;
+        }
+
         _game.SpawnInterval += Time.deltaTime;
         _game.PlayTime += Time.deltaTime;
         RefreshTime();
@@ -85,8 +87,18 @@ public class UI_PlayPopup : UI_Popup
             _game.GenerateMonster();
             _game.SpawnInterval = 0;
         }
-
     }
+
+    void OnPlayerDataUpdated()
+    {
+        GetImage((int)Images.FillingImg).fillAmount = (float)_game.PlayerExp / _game.PlayerTotalExp;
+    }
+
+    void OnOnMonsterDataUpdated()
+    {
+        GetText((int)Texts.KillValue).text = $"{_game.NumDeadMonsters}";
+    }
+
 
     void RefreshTime()
     {
@@ -96,7 +108,9 @@ public class UI_PlayPopup : UI_Popup
     void OnPlayerLevelUp()
     {
         //TODO
-        //Open select skill
+        if (_game.CanUpgradeSkill == true)
+            Managers.UI.ShowPopupUI<UI_SelectSkillPopup>();
+
         GetImage((int)Images.FillingImg).fillAmount = (float)_game.PlayerExp / _game.PlayerTotalExp;
         GetText((int)Texts.ExpValue).text = $"{_game.PlayerLevel}";
 
@@ -104,5 +118,9 @@ public class UI_PlayPopup : UI_Popup
     PlayerController GetPlayer()
     {
         return _game.Player;
+    }
+    public void OnClickPause()
+    {
+        Managers.UI.ShowPopupUI<UI_PausePopup>();
     }
 }

@@ -7,12 +7,12 @@ public class Commendation : MonoBehaviour
     Rigidbody2D _rigid;
     private int _penetration = 3;
     
-    //TODO 표창 명중률이 떨어짐 유도미사일같은 로직으로 바꾸기
     public void Init(Vector3 dir)
     {
         _rigid = GetComponent<Rigidbody2D>();
         _rigid.velocity = dir * 10f;
         _penetration = 3;
+        StartCoroutine(CheckMissing());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -29,10 +29,10 @@ public class Commendation : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    //표창이 빗나갔을 경우 자동으로 파괴
+    IEnumerator CheckMissing()
     {
-        if (collision.CompareTag("Ground"))
-            Managers.Resource.Destroy(gameObject);
+        yield return new WaitForSeconds(3f);
+        Managers.Resource.Destroy(gameObject);
     }
-
 }

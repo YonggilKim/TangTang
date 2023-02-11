@@ -105,6 +105,13 @@ public class MonsterController : MonoBehaviour
         Managers.Game.PlayerExp += _monster.exp;
         Managers.Game.NumDeadMonsters++;
         yield return new WaitForSeconds(0.6f);
+        // 아이템 떨구자
+        int rand = Random.Range(0, 10);
+        if (rand < 6)
+        { 
+            Managers.Resource.Instantiate("Exp/Exp", Managers.Game.Exproot);
+        }
+
         Managers.Resource.Destroy(this.gameObject);
 
     }

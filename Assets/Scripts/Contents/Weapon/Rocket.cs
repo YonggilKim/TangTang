@@ -6,7 +6,7 @@ using UnityEngine;
 public class Rocket : MonoBehaviour
 {
     [NonSerialized]
-    public Transform target;
+    public Transform Target;
     [NonSerialized]
     public Rigidbody2D rigidBody;
     private float _rotateAmount = 200;
@@ -16,12 +16,12 @@ public class Rocket : MonoBehaviour
     private void Awake()
     {
         rigidBody= GetComponent<Rigidbody2D>();
- 
     }
+
     void FixedUpdate()
     {
         _timer += Time.deltaTime;
-        if (_timer > 5 || target.gameObject == null)
+        if (_timer > 5 || Target.gameObject == null)
         {
             Debug.Log("target is already Die.");
             Explosion();
@@ -29,7 +29,7 @@ public class Rocket : MonoBehaviour
             return;
         }
 
-        Vector2 direction = (Vector2)target.position - rigidBody.position;
+        Vector2 direction = (Vector2)Target.position - rigidBody.position;
         direction.Normalize();
         float rotateSpeed = Vector3.Cross(direction, transform.up).z;
         rigidBody.angularVelocity = -_rotateAmount * rotateSpeed;

@@ -104,6 +104,13 @@ public class UIManager
 		return popup;
     }
 
+    public T PeekPopupUI<T>() where T : UI_Popup
+    {
+        if(_popupStack.Count == 0) 
+            return null;
+
+        return _popupStack.Peek() as T;
+    }
     public void ClosePopupUI(UI_Popup popup)
     {
 		if (_popupStack.Count == 0)

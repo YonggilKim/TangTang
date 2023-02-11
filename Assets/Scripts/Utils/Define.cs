@@ -61,8 +61,8 @@ public class Define
         Ball,
         Drone,
         Firebomb,
-        Rocket,
         Tree,
+        Count
     }
 
     public enum EventTypeInt

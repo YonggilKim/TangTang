@@ -13,6 +13,7 @@ namespace Data
         public int maxHp;
         public int attack;
         public int totalExp;
+        public float monsterSpawnTime;
     }
     [Serializable]
     public class PlayerData : ILoader<int, Player>

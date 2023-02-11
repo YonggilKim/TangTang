@@ -1044,7 +1044,7 @@ GameObject:
   - component: {fileID: 7584703970884032016}
   - component: {fileID: 7584703970884032017}
   m_Layer: 5
-  m_Name: Mails
+  m_Name: UI_MailPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

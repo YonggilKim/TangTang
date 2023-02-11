@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -51,10 +52,17 @@ public class Util
         return null;
     }
 
+    public static T RandomEnum<T>()
+    {
+        Array values = Enum.GetValues(typeof(T));
+        return (T)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+
+    }
+
     public static Vector2 RandomPointInAnnulus(Vector2 origin, float minRadius = 5, float maxRadius = 8)
     {
-        var randomDirection = (Random.insideUnitCircle * origin).normalized;
-        var randomDistance = Random.Range(minRadius, maxRadius);
+        var randomDirection = (UnityEngine.Random.insideUnitCircle * origin).normalized;
+        var randomDistance = UnityEngine.Random.Range(minRadius, maxRadius);
         var point = origin + randomDirection * randomDistance;
         return point;
     }
