@@ -61,6 +61,7 @@ public class SkillController : MonoBehaviour
         }
 
     }
+
     bool IsHaveSkill(SkillType type)
     {
         for (int i = 0; i < _game.CurrentSkills.Count; i++)
@@ -71,7 +72,6 @@ public class SkillController : MonoBehaviour
         return false;
     }
 
-    //TODO DataManager로 스킬값 가져오기
     public void SetSpiner()
     {
         GameObject spinner = Managers.Resource.Instantiate("Skill/Spinner", gameObject.transform);

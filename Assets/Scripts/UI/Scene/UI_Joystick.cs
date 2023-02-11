@@ -37,24 +37,6 @@ public class UI_Joystick : UI_Scene
         gameObject.BindEvent(Drag, Define.UIEvent.Drag);
     }
 
-
-    void Update()
-    {
-        if (JoystickVec.x == 0 && JoystickVec.y == 0)
-        {
-            //ArrowDirecteur.SetActive(false);
-        }
-        else
-        {
-            //ArrowDirecteur.SetActive(true);
-            //ArrowDirecteur.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-joystickVec.x, joystickVec.y) * 180 / Mathf.PI);
-        }
-        //if (Gun.activeSelf == true)
-        //{
-        //    Gun.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-joystickVec.x, joystickVec.y) * 180 / Mathf.PI);
-        //}
-    }
-
     public void PointerDown()
     {
         _handler.transform.position = Input.mousePosition;
