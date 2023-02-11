@@ -99,7 +99,6 @@ public class UI_PlayPopup : UI_Popup
         GetText((int)Texts.KillValue).text = $"{_game.NumDeadMonsters}";
     }
 
-
     void RefreshTime()
     {
         GetText((int)Texts.Timer).text = $"{TimeSpan.FromSeconds(_game.PlayTime).ToString(@"mm\:ss")}";

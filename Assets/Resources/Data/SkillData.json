@@ -17,7 +17,7 @@
       "commPenCount": "2",
       "spinDuration": "4",
       "spinDelay": "9",
-      "ballCount": "2",
+      "ballCount": "1",
       "droneAttackSpeed": "6",
       "firebombCount": "1",
       "treeCount": "1"
@@ -105,7 +105,7 @@
       "commPenCount": "5",
       "spinDuration": "9",
       "spinDelay": "1",
-      "ballCount": "6",
+      "ballCount": "7",
       "droneAttackSpeed": "4",
       "firebombCount": "8",
       "treeCount": "3"

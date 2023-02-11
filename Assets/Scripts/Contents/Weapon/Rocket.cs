@@ -23,7 +23,6 @@ public class Rocket : MonoBehaviour
         _timer += Time.deltaTime;
         if (_timer > 5 || Target.gameObject == null)
         {
-            Debug.Log("target is already Die.");
             Explosion();
             _timer = 0;
             return;

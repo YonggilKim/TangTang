@@ -62,7 +62,6 @@ public class GameManager
 
             if (level != PlayerLevel)
             {
-                Debug.Log("Level Up!");
                 PlayerLevel = level;
                 SetPlayerStat(PlayerLevel);
             }

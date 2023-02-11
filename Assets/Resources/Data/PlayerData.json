@@ -5,34 +5,34 @@
       "maxHp": "105f",
       "attack": "1",
       "totalExp": "100",
-      "monsterSpawnTime":  "0.5f"
+      "monsterSpawnTime":  "0.4f"
     },
     {
       "level": "2",
       "maxHp": "105f",
       "attack": "2",
-      "totalExp": "400",
+      "totalExp": "200",
       "monsterSpawnTime": "0.4f"
     },
     {
       "level": "3",
       "maxHp": "105f",
       "attack": "2",
-      "totalExp": "1000",
+      "totalExp": "400",
       "monsterSpawnTime": "0.3f"
     },
     {
       "level": "4",
       "maxHp": "105f",
       "attack": "2",
-      "totalExp": "2000",
+      "totalExp": "600",
       "monsterSpawnTime": "0.2f"
     },
     {
       "level": "5",
       "maxHp": "105f",
       "attack": "2",
-      "totalExp": "3000",
+      "totalExp": "1500",
       "monsterSpawnTime": "0.1f"
     },
     {
@@ -40,35 +40,35 @@
       "maxHp": "105f",
       "attack": "2",
       "totalExp": "4000",
-      "monsterSpawnTime": "0.1f"
+      "monsterSpawnTime": "0.05f"
     },
     {
       "level": "7",
       "maxHp": "105f",
       "attack": "2",
       "totalExp": "5000",
-      "monsterSpawnTime": "0.1f"
+      "monsterSpawnTime": "0.03f"
     },
     {
       "level": "8",
       "maxHp": "105f",
       "attack": "2",
       "totalExp": "6000",
-      "monsterSpawnTime": "0.1f"
+      "monsterSpawnTime": "0.05"
     },
     {
       "level": "9",
       "maxHp": "105f",
       "attack": "2",
       "totalExp": "7000",
-      "monsterSpawnTime": "0.1f"
+      "monsterSpawnTime": "0"
     },
     {
       "level": "10",
       "maxHp": "105f",
       "attack": "2",
       "totalExp": "8000",
-      "monsterSpawnTime": "0.1f"
+      "monsterSpawnTime": "0"
     }
   ]
 } 

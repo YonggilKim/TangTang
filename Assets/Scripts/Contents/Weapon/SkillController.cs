@@ -9,16 +9,18 @@ using static Define;
 //TODO 구조변경 필요 더좋은방법 찾기
 public class SkillController : MonoBehaviour
 {
-    protected int Level;
-    protected float CommAttackSpeed = 1;
-    protected int CommPenCount = 3;//관통가능
-    protected int SpinDuration = 4;// 유지시간
-    protected int SpinDelay = 10;// 유지시간
-    protected int BallCount = 1;//
-    protected float DroneAttackSpeed = 6;
-    protected int FirebombCount = 1;
-    protected int TreeCount = 1;
+    public int Level;
+    public float CommAttackSpeed = 1;
+    public int CommPenCount = 3;//관통가능
+    public int SpinDuration = 4;// 유지시간
+    public int SpinDelay = 10;// 유지시간
+    public int BallCount = 1;//
+    public float DroneAttackSpeed = 6;
+    public int FirebombCount = 1;
+    public int TreeCount = 1;
 
+    private int _prevBallCount = 0;
+    private int _prevtreeCount = 0;
     GameManager _game;
     #region 화염병
     private GameObject _firebomb;
@@ -41,10 +43,32 @@ public class SkillController : MonoBehaviour
         CommPenCount = skill.commPenCount;
         SpinDuration = skill.spinDuration;
         SpinDelay = skill.spinDelay;
-        BallCount = skill.ballCount;
         DroneAttackSpeed = skill.droneAttackSpeed;
         FirebombCount = skill.firebombCount;
+
+        _prevBallCount = BallCount;
+        _prevtreeCount = TreeCount;
+        BallCount = skill.ballCount;
         TreeCount = skill.treeCount;
+       
+        if(BallCount - _prevBallCount > 0 && IsHaveSkill(SkillType.Ball)) 
+        { 
+            Managers.Resource.Instantiate($"Skill/Ball");
+        }
+        if (TreeCount - _prevtreeCount > 0 && IsHaveSkill(SkillType.Tree))
+        {
+            Managers.Resource.Instantiate($"Skill/Tree");
+        }
+
+    }
+    bool IsHaveSkill(SkillType type)
+    {
+        for (int i = 0; i < _game.CurrentSkills.Count; i++)
+        {
+            if (type == _game.CurrentSkills[i])
+                return true;
+        }
+        return false;
     }
 
     //TODO DataManager로 스킬값 가져오기
@@ -59,30 +83,17 @@ public class SkillController : MonoBehaviour
         GameObject launcher = Managers.Resource.Instantiate("Skill/CommendationLauncher", gameObject.transform);
     }
 
+    public void SetDrone()
+    {
+        GameObject dron = Managers.Resource.Instantiate("Skill/Drone", gameObject.transform);
+    }
+   
     public void SetFireBomb()
     {
         _player = _game.Player.gameObject;
         _target = _game.Player.FollowPoint;
 
         StartCoroutine(GenerateFirebomb());
-    }
-
-    public void SetDrone()
-    {
-        GameObject dron = Managers.Resource.Instantiate("Skill/Drone", gameObject.transform);
-    }
-
-    public void SetReflectionWeapon(SkillType type)
-    {
-        switch (type)
-        {
-            case SkillType.Ball:
-                StartCoroutine(GenerateReflectionWeapon(type));
-                break;
-            case SkillType.Tree:
-                StartCoroutine(GenerateReflectionWeapon(type));
-                break;
-        }
     }
 
     //화염병 위치 계산 및 생성(재귀)
@@ -106,7 +117,20 @@ public class SkillController : MonoBehaviour
         StartCoroutine(GenerateFirebomb());
     }
 
-    IEnumerator GenerateReflectionWeapon(SkillType type)
+    public void SetReflectionWeapon(SkillType type)
+    {
+        switch (type)
+        {
+            case SkillType.Ball:
+                StartCoroutine(GenerateReflectionWeapon(type));
+                break;
+            case SkillType.Tree:
+                StartCoroutine(GenerateReflectionWeapon(type));
+                break;
+        }
+    }
+
+    IEnumerator GenerateReflectionWeapon(SkillType type )
     {
         int count = 1;
 
@@ -118,6 +142,7 @@ public class SkillController : MonoBehaviour
         {
             count = TreeCount;
         }
+
 
         for (int i = 0; i < count; i++)
         {

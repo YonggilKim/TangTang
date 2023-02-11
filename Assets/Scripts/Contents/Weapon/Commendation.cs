@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Commendation : CommendationLauncher
+public class Commendation : MonoBehaviour
 {
     Rigidbody2D _rigid;
     private int _penetration = 3;
@@ -11,7 +11,7 @@ public class Commendation : CommendationLauncher
     {
         _rigid = GetComponent<Rigidbody2D>();
         _rigid.velocity = dir * 10f;
-        _penetration = CommPenCount;
+        _penetration = Managers.Game.Skill.CommPenCount;
         StartCoroutine(CheckMissing());
     }
 

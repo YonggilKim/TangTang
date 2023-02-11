@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class CommendationLauncher : SkillController 
+public class CommendationLauncher : MonoBehaviour 
 {
     float _timer;
 
@@ -13,7 +13,7 @@ public class CommendationLauncher : SkillController
     {
         _timer += Time.deltaTime;
 
-        if (_timer > CommAttackSpeed)
+        if (_timer > Managers.Game.Skill.CommAttackSpeed)
         {
             FireComm();
             _timer = 0f;

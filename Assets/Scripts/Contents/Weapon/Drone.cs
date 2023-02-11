@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Drone : SkillController
+public class Drone : MonoBehaviour
 {
     float _timer = 0;
     List<Transform> _transformList = new List<Transform>();
@@ -14,7 +14,7 @@ public class Drone : SkillController
 
         _timer += Time.deltaTime;
 
-        if (_timer > DroneAttackSpeed)
+        if (_timer > Managers.Game.Skill.DroneAttackSpeed)
         {
             StartCoroutine(SpawenRocket());
             _timer = 0f;

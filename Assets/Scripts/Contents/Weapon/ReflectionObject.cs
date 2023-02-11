@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,8 +8,11 @@ public class ReflectionObject : MonoBehaviour
     public SkillType _skillType = SkillType.Ball;
     Rigidbody2D _rb;
     Vector3 _lastVeclocity;
-    Vector3[] dirList = new Vector3[] {
-    new Vector3(1,1,0), new Vector3(1,-1,0), new Vector3(-1,1,0), new Vector3(-1,-1,0)
+    Vector3[] dirList = new Vector3[] 
+    {
+        new Vector3(1,1,0), new Vector3(1,-1,0), new Vector3(-1,1,0), new Vector3(-1,-1,0)
+        //new Vector3(1,1,0), new Vector3(1,-1,0), new Vector3(-1,1,0), new Vector3(-1,-1,0),
+        //new Vector3(1,1,0), new Vector3(1,-1,0), new Vector3(-1,1,0), new Vector3(-1,-1,0),
     };
     float objectSpeed = 35;
     float rotateValue = 5;
@@ -56,14 +60,17 @@ public class ReflectionObject : MonoBehaviour
 
     void ShootObject()
     {
-        Vector3 ranDir = dirList[Random.Range(0, 4)];
+        //Vector3 ranDir = dirList[Random.Range(0, 4)];
+        float x = UnityEngine.Random.Range(-10, 10);
+        float y = UnityEngine.Random.Range(-10, 10);
+        Vector2 ranDir = new Vector2(x,y).normalized;
         _rb = this.gameObject.GetComponent<Rigidbody2D>();
-        transform.position = Managers.Game.Player.transform.position + Vector3.up;
+        transform.position = Managers.Game.Player.transform.position + (Vector3)ranDir*2;
 
         if (gameObject.name.Contains("Ball"))
         {
             _skillType = SkillType.Ball;
-            objectSpeed = 35;
+            objectSpeed = 70;
         }
         else
         {
@@ -89,10 +96,17 @@ public class ReflectionObject : MonoBehaviour
             return;
         if (_skillType == SkillType.Ball)
         {
-            collision.gameObject.GetComponent<MonsterController>()?.OnHitted(this.gameObject);
-            var speed = _lastVeclocity.magnitude;
-            var direction = Vector3.Reflect(_lastVeclocity.normalized, collision.contacts[0].normal);
-            _rb.velocity = direction * Mathf.Max(_lastVeclocity.magnitude, 0f);
+            try
+            {
+                collision.gameObject.GetComponent<MonsterController>()?.OnHitted(this.gameObject);
+                var speed = _lastVeclocity.magnitude;
+                var direction = Vector3.Reflect(_lastVeclocity.normalized, collision.contacts[0].normal);
+                _rb.velocity = direction * Mathf.Max(_lastVeclocity.magnitude, 0f);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+            }
         }
     }
 }
